@@ -1,0 +1,92 @@
+## Multivendor Ecommerce website
+==============================================
+Setup project and creating database models --> pip freeze > requirements.txt
+-------------
+1. Python
+2. Virtual envirement - pip install virtualenv
+3. Create vitual envirement - Python -m venv env_marketplace
+4. source the virtual envirement - source env_marketplace/bin/activate
+5. Install django - pip install django
+6. Create django project - django-admin startproject backend_api
+7. Run django project - Python3 manage.py runserver
+8. install postgresql
+9. instal pgadmin
+10. install psycopg2-binary package
+11. install Django Rest Framework # Then Add to Installed app (Setting.py)
+
+# Create Apps
+    # Main App
+    I. Basic setup
+        - python manage.py startapp main
+        - create superuser admin ( access django-admin dashboard ) ( pip cli )
+        - configure models.py ( classes )
+        - configure url ( backend_api and main) urls.py ( include main in backend_api)
+        - create serializers.py ( new file where specifie api response content )
+        - register the vendor admin.py
+        - Vendor list in views.py ( api call)
+
+    II. Authentication setup
+        - configure auth path url ( backend_api/urls.py)
+        - configure permissions in main/views.py
+        - Configure setting.py (restframework documentation notation)
+        - reconfigure serializers.py and views.py
+
+    III. Product & Category API
+        - register Category and Product admin.py
+        - create category (UI)
+        - configure Product model 
+        - configure product serializers ( all % single )
+        - configure product in views.py ( all % single )
+        - configure urls routes for Product ( all % single )
+
+    VI.Jwt authentication
+        - install jwt package pip
+        - Update setting.py and urls.py with DFR simplejwt docs
+
+            # Generate Token: 
+            http http://localhost:8000/api/token/ username=admin password=serverpass 
+                HTTP/1.1 200 OK
+                Allow: POST, OPTIONS
+                Content-Length: 483
+                Content-Type: application/json
+                Cross-Origin-Opener-Policy: same-origin
+                Date: Tue, 22 Aug 2023 16:57:20 GMT
+                Referrer-Policy: same-origin
+                Server: WSGIServer/0.2 CPython/3.11.3
+                Vary: Accept
+                X-Content-Type-Options: nosniff
+                X-Frame-Options: DENY
+
+                {
+                    "access": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjkyNzIzNzQwLCJpYXQiOjE2OTI3MjM0NDAsImp0aSI6ImE3NzRkY2RiYjFjMTQzZmZhZDE1MzdhMDdhZDRjMzU3IiwidXNlcl9pZCI6MX0._WT9_Q9yPu-BSaFxzaHZ4metBKybVdUuh4b5ZNsMU8o",
+                    "refresh": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTY5MjgwOTg0MCwiaWF0IjoxNjkyNzIzNDQwLCJqdGkiOiI1NzNhYTQ2YzFmZjg0NjE2YmEzNmZhNmNkNjY1ZTExZSIsInVzZXJfaWQiOjF9.KXqYEsL-dfK-KSZ7-G-ufYdymMujiyyDlimAN9Cbfjk"
+                }
+
+            # Use Token:
+                - POST request : http http://localhost:8000/api/vendors/ "Authorization: Bearer {access} "
+                - Refresh Expired : http http://localhost:8000/api/token/refersh refresh={refresh}
+
+    V. Customer & Order & Orderitems model:
+        - Create models
+        - Create API {Customer, Order, OrderItems} ( serializers --> views --> urls --> register)
+        - PS: orderItems implemented with Order (related) So Only one class
+
+    VI. Pagination
+        - Update settings.py from DRF docs
+            # Request : http://localhost:8000/api/orders/?limit=1&offset=1
+
+        - Custom pagination
+            - new file pagination.py
+            - Update settings.py from DRF docs
+
+    VII. Viewsets and Router ( DRF DOCS )
+        - add customer address api ( all steps )
+        - register in admin page
+    
+    VIII. Product rating and reviews
+    
+    IX. React Dev
+        
+    
+    
+
